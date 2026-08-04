@@ -1,0 +1,14 @@
+checkpoint_url: https://huggingface.co/made-with-clay/Clay/resolve/main/v1.5/clay-v1.5.ckpt
+sensor: sentinel-2-l2a
+chip_size: 256
+embedding_dimension: 1024
+bands: [blue, green, red, rededge1, rededge2, rededge3, nir, nir08, swir16, swir22]
+# Nanometres, in the same order as bands. Normalize pixels with the official
+# Clay metadata.yaml before creating the NPZ passed to `geoai clay-embed`.
+wavelengths_nm: [493, 560, 665, 704, 740, 783, 833, 865, 1614, 2202]
+classifier:
+  type: logistic_regression
+  test_size: 0.25
+  random_state: 42
+  bootstrap_iterations: 1000
+

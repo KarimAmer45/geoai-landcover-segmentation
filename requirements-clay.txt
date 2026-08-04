@@ -1,0 +1,4 @@
+-r requirements.txt
+# Official package release; the separate v1.5 checkpoint is downloaded at runtime.
+claymodel @ git+https://github.com/Clay-foundation/model.git@v1.0.1
+

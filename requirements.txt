@@ -1,0 +1,12 @@
+# Reproducible CPU/test environment. Heavy model stacks are deliberately separate.
+setuptools==80.9.0
+geopandas==1.1.4
+joblib==1.5.2
+matplotlib==3.11.1
+numpy==2.3.2
+pydantic==2.13.4
+rasterio==1.4.4
+scikit-learn==1.9.0
+shapely==2.1.1
+pytest==9.1.1
+ruff==0.12.9

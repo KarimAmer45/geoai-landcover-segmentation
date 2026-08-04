@@ -1,0 +1,21 @@
+# Keep the build context small and reproducible. Dockerfile.models uses `COPY . .`,
+# so without this it would pull the local virtualenv, git history, and caches into
+# the image. Weights and outputs are produced at runtime, never baked in.
+.venv/
+.git/
+.github/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.idea/
+.vscode/
+.env
+models/
+outputs/*
+!outputs/.gitkeep
+*.ckpt
+*.joblib
+notebooks/
+docs/

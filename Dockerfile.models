@@ -1,0 +1,12 @@
+FROM python:3.11-slim
+# GPU variant: use a matching NVIDIA CUDA runtime and CUDA PyTorch wheels.
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 MPLBACKEND=Agg
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git libgdal-dev gdal-bin && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY requirements.txt requirements-models.txt pyproject.toml README.md ./
+RUN pip install --no-cache-dir -r requirements-models.txt
+COPY . .
+RUN pip install --no-cache-dir -e .
+ENTRYPOINT ["geoai"]
+

@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=80.9.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "geoai-landcover-segmentation"
+version = "0.1.0"
+description = "Georeferenced land-feature segmentation with SAMGeo and Clay v1.5"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "Karim Amer"}]
+dependencies = [
+  "geopandas==1.1.4",
+  "joblib==1.5.2",
+  "matplotlib==3.11.1",
+  "numpy==2.3.2",
+  "pydantic==2.13.4",
+  "rasterio==1.4.4",
+  "scikit-learn==1.9.0",
+  "shapely==2.1.1",
+]
+
+[project.optional-dependencies]
+test = ["pytest==9.1.1", "ruff==0.12.9"]
+
+[project.scripts]
+geoai = "src.cli:main"
+
+[tool.setuptools]
+packages = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+markers = ["network: requires network access and heavyweight model downloads"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+

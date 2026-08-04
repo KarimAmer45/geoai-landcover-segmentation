@@ -1,0 +1,10 @@
+model_type: sam2-hiera-tiny
+box_threshold: 0.24
+text_threshold: 0.24
+min_area_ha: 0.01
+default_prompt: trees
+# Small Riau, Indonesia demonstration AOI (WGS84).
+bbox: [101.4350, 0.4500, 101.4450, 0.4600]
+zoom: 17
+source: Satellite
+

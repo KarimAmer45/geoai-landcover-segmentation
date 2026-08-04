@@ -1,0 +1,4 @@
+-r requirements.txt
+# Track A: GroundingDINO text prompts and the smaller SAM 2 encoder.
+segment-geospatial[text,samgeo2]==1.4.1
+
