@@ -1,4 +1,9 @@
 -r requirements.txt
 # Track A: GroundingDINO text prompts and the smaller SAM 2 encoder.
 segment-geospatial[text,samgeo2]==1.4.1
+# Basemap tile fetch without GDAL/osgeo bindings (pip-only, Windows-friendly).
+contextily==1.7.1
+# Pin transformers to the 4.x line groundingdino-py 0.4.0 expects; transformers 5.x
+# removed BertModel.get_head_mask, which LangSAM's GroundingDINO text encoder needs.
+transformers==4.44.2
 

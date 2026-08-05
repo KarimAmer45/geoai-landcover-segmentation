@@ -119,13 +119,20 @@ def create_preview(
     for channel in range(3):
         low, high = np.percentile(rgb[..., channel], (2, 98))
         rgb[..., channel] = np.clip((rgb[..., channel] - low) / max(high - low, 1e-6), 0, 1)
+    # A high-contrast red reads on both vegetation and bare ground; a translucent
+    # fill plus a crisp boundary keeps the mask legible even over green land, which a
+    # green overlay could not. See docs note on Track A limits for spectrally similar classes.
+    fill = np.array([1.0, 0.30, 0.20])
+    alpha = 0.35
     overlay = rgb.copy()
-    overlay[mask] = 0.45 * overlay[mask] + 0.55 * np.array([0.1, 0.9, 0.25])
+    overlay[mask] = (1.0 - alpha) * overlay[mask] + alpha * fill
 
     path = Path(output)
     path.parent.mkdir(parents=True, exist_ok=True)
     fig, axis = plt.subplots(figsize=(7, 7))
     axis.imshow(overlay)
+    if mask.any() and not mask.all():
+        axis.contour(mask.astype(float), levels=[0.5], colors="#c00000", linewidths=1.1)
     axis.set_axis_off()
     fig.tight_layout(pad=0)
     fig.savefig(path, dpi=160, bbox_inches="tight", pad_inches=0)

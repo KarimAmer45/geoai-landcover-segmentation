@@ -43,11 +43,12 @@ def main() -> None:
 
     rgb = np.moveaxis(image, 0, -1).astype(np.float32) / 255.0
     overlay = rgb.copy()
-    overlay[vegetation] = 0.45 * overlay[vegetation] + 0.55 * np.array([0.1, 0.9, 0.25])
+    overlay[vegetation] = 0.65 * overlay[vegetation] + 0.35 * np.array([1.0, 0.30, 0.20])
     preview = Path("docs/fixture-preview.png")
     preview.parent.mkdir(parents=True, exist_ok=True)
     figure, axis = plt.subplots(figsize=(5, 5))
     axis.imshow(overlay)
+    axis.contour(vegetation.astype(float), levels=[0.5], colors="#c00000", linewidths=1.1)
     axis.set_axis_off()
     figure.tight_layout(pad=0)
     figure.savefig(preview, dpi=120, bbox_inches="tight", pad_inches=0)

@@ -33,10 +33,20 @@ normalized sensor chips -> Clay v1.5 frozen encoder -> embeddings
   dependencies, Docker, GitHub Actions, notebook, configuration examples, and a
   bounded Pydantic agent-tool schema.
 
+![Real Track A run over a Riau AOI](docs/real-riau-trees.png)
+
+*Track A on real imagery: `LangSAM` (GroundingDINO + SAM 2, `sam2-hiera-tiny`) with the
+prompt `"trees"` over a small AOI near Pekanbaru, Riau, Indonesia (bbox
+`101.435, 0.450, 101.445, 0.460`, zoom 17, box/text threshold 0.24). The red overlay is
+the predicted vegetation mask; it tracks tree cover while excluding the runway, buildings,
+and cleared/bare ground. Result: 84 polygons, 80.3 ha. Basemap: Esri World Imagery,
+retrieved 2026-08-05 — imagery © Esri and its data providers. This is a demonstrator
+output, not a validated accuracy claim; see [Scope and limitations](#scope-and-limitations).*
+
 ![Offline fixture pipeline preview](docs/fixture-preview.png)
 
-*Offline CI fixture preview: green denotes the deterministic contract-test mask. The
-image is synthetic and demonstrates output wiring only; it is not a SAMGeo quality
+*Offline CI fixture preview: the red overlay denotes the deterministic contract-test mask.
+The image is synthetic and demonstrates output wiring only; it is not a SAMGeo quality
 claim. A real model run writes the same `preview.png` artifact.*
 
 ## Quickstart
@@ -164,6 +174,11 @@ docker run --rm -v "$PWD/outputs:/app/outputs" geoai-segmentation:models \
 - GroundingDINO and SAM were not trained specifically for every satellite sensor or
   class. Text prompts such as “oil palm” or “clearing” can yield false positives and
   should be validated against independent labels.
+- Track A text-prompt segmentation suits **visually distinct** features (vegetation vs
+  water, buildings, or bare soil). **Spectrally similar** classes — for example forest
+  vs pasture over a lush frontier — are not separable by a text prompt: the mask floods
+  to nearly the whole scene. That discrimination is a **Track B** job (Clay embeddings
+  plus a trained classifier), which is the correct tool for forest-vs-non-forest.
 - Pixel masks inherit the source georeferencing but not its positional accuracy.
 - Small polygons are sensitive to raster resolution and projection. Areas are measured
   in a local UTM CRS, but uncertainty from segmentation and source data is not captured.
