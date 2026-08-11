@@ -130,7 +130,7 @@ No real-world Clay benchmark score is committed because no labelled study datase
 provided with this repository. The synthetic classifier test is a CI contract test,
 not scientific evidence, and its score is deliberately excluded here. Run the command
 above on a versioned, spatially independent dataset and commit its `metrics.json`
-before placing a numeric result on a CV.
+before reporting a numeric result.
 
 ## Notebook and configuration
 
